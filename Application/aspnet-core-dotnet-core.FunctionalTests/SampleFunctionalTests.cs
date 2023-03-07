@@ -58,6 +58,64 @@ namespace SampleWebApplication.FunctionalTests
                 }
             }
         }
+        [TestMethod]
+        public void SampleFunctionalTest2()
+        {
+            var webAppUrl = testContext.Properties["webAppUrl"].ToString();
+
+            var startTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            var endTimestamp = startTimestamp + 60 * 10;
+
+            while (true)
+            {
+                try
+                {
+                    driver.Navigate().GoToUrl(webAppUrl);
+                   
+                    Assert.AreEqual("Azure DevOps Project has been successfully setup V1", driver.FindElementByCssSelector("div[class='description line-1']").Text, "Expected description line  to be 'Azure DevOps Project has been successfully setup in Production V2.0'");
+                    
+                    break;
+                }
+                catch(Exception e)
+                {
+                    var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                    if (currentTimestamp > endTimestamp)
+                    {
+                        Console.Write("##vso[task.logissue type=error;]Test SampleFunctionalTest1 failed with error: " + e.ToString());
+                        throw;
+                    }
+                    Thread.Sleep(5000);
+                }
+            }
+        }
+        [TestMethod]
+        public void SampleFunctionalTest3()
+        {
+            var webAppUrl = testContext.Properties["webAppUrl"].ToString();
+
+            var startTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            var endTimestamp = startTimestamp + 60 * 10;
+
+            while (true)
+            {
+                try
+                {
+                    driver.Navigate().GoToUrl(webAppUrl);
+                    Assert.AreEqual("Your ASP.NET Core app is up and running on Azure V1", driver.FindElementByCssSelector("div[class='description line-2']").Text, "Expected description line  to be 'Your ASP.NET Core app is up and running on Azure V1'");
+                    break;
+                }
+                catch(Exception e)
+                {
+                    var currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                    if (currentTimestamp > endTimestamp)
+                    {
+                        Console.Write("##vso[task.logissue type=error;]Test SampleFunctionalTest1 failed with error: " + e.ToString());
+                        throw;
+                    }
+                    Thread.Sleep(5000);
+                }
+            }
+        }
 
         private RemoteWebDriver GetChromeDriver()
         {
