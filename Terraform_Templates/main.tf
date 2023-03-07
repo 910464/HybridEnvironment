@@ -76,7 +76,7 @@ resource "azurerm_sql_server" "app_server" {
   location                     = local.location  
   version             = "12.0"
   administrator_login          = local.sql_admin_user_name
-  administrator_login_password = FuzailAhamed@421
+  administrator_login_password = "FuzailAhamed@421"
 }
 
 resource "azurerm_sql_database" "app_db" {
