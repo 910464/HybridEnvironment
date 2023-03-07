@@ -12,7 +12,7 @@ locals {
   sql_admin_user_name="dbadmin"
 
 }
- data "azurerm_client_config" "current" {}
+ /*data "azurerm_client_config" "current" {}
 
 data "azurerm_key_vault" "MySecreat" {
   name                = local.key_vault_name
@@ -21,7 +21,7 @@ data "azurerm_key_vault" "MySecreat" {
 data "azurerm_key_vault_secret" "DBpassword" {
   name         = local.key_vault_secreat_name
   key_vault_id = data.azurerm_key_vault.MySecreat.id
-}
+} */
 
 resource "azurerm_resource_group" "app_grp"{
   name=local.resource_group
@@ -76,7 +76,8 @@ resource "azurerm_sql_server" "app_server" {
   location                     = local.location  
   version             = "12.0"
   administrator_login          = local.sql_admin_user_name
-  administrator_login_password = data.azurerm_key_vault_secret.DBpassword.value
+  //administrator_login_password = data.azurerm_key_vault_secret.DBpassword.value
+  administrator_login_password="Azure123"
 }
 
 resource "azurerm_sql_database" "app_db" {
